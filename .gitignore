@@ -1,0 +1,16 @@
+node_modules/
+lib/
+*.tgz
+.npm-cache/
+.DS_Store
+launch/
+
+# example
+example/node_modules/
+example/ios/Pods/
+example/ios/build/
+example/android/.gradle/
+example/android/app/build/
+example/android/build/
+example/.bundle/vendor/
+*.log

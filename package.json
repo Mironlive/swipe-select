@@ -1,0 +1,88 @@
+{
+  "name": "@mironlive/react-native-swipe-select",
+  "version": "0.1.0",
+  "description": "Swipe to multi-select for React Native lists and grids: hold, swipe, auto-scroll. FlatList, FlashList, LegendList, Expo.",
+  "license": "MIT",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "react-native": "./src/index.ts",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs",
+      "default": "./lib/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "lib",
+    "README.md",
+    "README.ru.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "!src/**/__tests__"
+  ],
+  "sideEffects": false,
+  "keywords": [
+    "checkbox",
+    "drag-select",
+    "drag-to-select",
+    "expo",
+    "flashlist",
+    "flatlist",
+    "gesture",
+    "gesture-handler",
+    "legend-list",
+    "legendlist",
+    "multi-select",
+    "range-select",
+    "react-native",
+    "reanimated",
+    "selection",
+    "swipe",
+    "swipe-select"
+  ],
+  "peerDependencies": {
+    "react": ">=18.2.0",
+    "react-native": ">=0.74.0",
+    "react-native-gesture-handler": ">=2.14.0",
+    "react-native-reanimated": ">=3.6.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "rimraf": "^6.1.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "npm run clean && tsup",
+    "type-check": "tsc --noEmit -p tsconfig.json",
+    "test": "node --test --experimental-strip-types src/__tests__/*.test.ts",
+    "prepublishOnly": "npm run type-check && npm test && npm run build",
+    "example:install": "cd example && npm install",
+    "example:pods": "cd example/ios && pod install",
+    "example:start": "cd example && npm start",
+    "example:ios": "cd example && npm run ios"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "react-native": "./src/index.ts",
+  "source": "./src/index.ts",
+  "author": "Mironov (https://github.com/Mironlive)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mironlive/swipe-select.git"
+  },
+  "homepage": "https://github.com/Mironlive/swipe-select#readme",
+  "bugs": {
+    "url": "https://github.com/Mironlive/swipe-select/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
