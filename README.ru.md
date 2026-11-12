@@ -1,6 +1,6 @@
 # Swipe Select
 
-`@mironlive/react-native-swipe-select` · [English](./README.md)
+`@mironlive/react-native-swipe-select` · [English](https://github.com/Mironlive/swipe-select#readme)
 
 Выбор элементов списка жестом для React Native: зажал → провёл пальцем → элементы под пальцем отмечаются, у края список сам прокручивается.
 

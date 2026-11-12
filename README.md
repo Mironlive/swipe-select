@@ -9,7 +9,9 @@
   <a href="https://www.npmjs.com/package/@mironlive/react-native-swipe-select"><img src="https://img.shields.io/npm/v/@mironlive/react-native-swipe-select.svg" alt="npm version"></a>
   <img src="https://img.shields.io/badge/platforms-iOS%20%7C%20Android-lightgrey.svg" alt="platforms">
   <img src="https://img.shields.io/badge/Expo-compatible-000020.svg" alt="Expo compatible">
-  <a href="./LICENSE"><img src="https://img.shields.io/npm/l/@mironlive/react-native-swipe-select.svg" alt="MIT license"></a>
+  <a href="https://www.npmjs.com/package/@mironlive/react-native-swipe-select"><img src="https://img.shields.io/npm/dm/@mironlive/react-native-swipe-select.svg" alt="npm downloads"></a>
+  <a href="https://github.com/Mironlive/swipe-select/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/@mironlive/react-native-swipe-select.svg" alt="MIT license"></a>
+  <img src="https://img.shields.io/badge/types-TypeScript-3178c6.svg" alt="TypeScript">
 </p>
 
 <p align="center">
@@ -393,7 +395,7 @@ The main cost during a gesture is re-rendering your rows. Keep it cheap: `memo` 
 
 ## Example app
 
-`example/` is a bare React Native app with eight scenarios: mail with a left strip (FlatList, locked items, simulated incoming mail during a gesture), right strip (FlashList), long press, LegendList, chat (`inverted`), FlashList grid, FlatList grid, horizontal list.
+[`example/`](https://github.com/Mironlive/swipe-select/tree/main/example) is a bare React Native app with eight scenarios: mail with a left strip (FlatList, locked items, simulated incoming mail during a gesture), right strip (FlashList), long press, LegendList, chat (`inverted`), FlashList grid, FlatList grid, horizontal list.
 
 ```bash
 npm run example:install
@@ -414,7 +416,7 @@ npm run build
 
 Made by Mironov · [@Mironlive](https://github.com/Mironlive)
 
-[Документация на русском](./README.ru.md)
+[Документация на русском](https://github.com/Mironlive/swipe-select/blob/main/README.ru.md)
 
 ## License
 
