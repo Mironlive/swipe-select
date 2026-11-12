@@ -15,6 +15,10 @@
 
 ## Установка
 
+Работает одинаково в **Expo** (Expo Go и dev build) и в **React Native CLI** (bare-проекты).
+
+**React Native CLI:**
+
 ```bash
 npm i @mironlive/react-native-swipe-select
 ```
@@ -33,7 +37,7 @@ npm i react-native-gesture-handler react-native-reanimated
 
 ### Expo
 
-Работает в Expo Go и в dev build — своего нативного кода у пакета нет. Проверено на Expo SDK 58 (RN 0.88, Gesture Handler 3.3, Reanimated 4.7).
+Работает в Expo Go и в dev build — своего нативного кода у пакета нет. В React Native CLI ставится как обычная JS-зависимость, pods для самого пакета не нужны. Проверено на Expo SDK 58 (RN 0.88, Gesture Handler 3.3, Reanimated 4.7).
 
 ```bash
 npx expo install react-native-gesture-handler react-native-reanimated

@@ -9,6 +9,7 @@
   <a href="https://www.npmjs.com/package/@mironlive/react-native-swipe-select"><img src="https://img.shields.io/npm/v/@mironlive/react-native-swipe-select.svg" alt="npm version"></a>
   <img src="https://img.shields.io/badge/platforms-iOS%20%7C%20Android-lightgrey.svg" alt="platforms">
   <img src="https://img.shields.io/badge/Expo-compatible-000020.svg" alt="Expo compatible">
+  <img src="https://img.shields.io/badge/React%20Native%20CLI-compatible-61dafb.svg" alt="React Native CLI compatible">
   <a href="https://www.npmjs.com/package/@mironlive/react-native-swipe-select"><img src="https://img.shields.io/npm/dm/@mironlive/react-native-swipe-select.svg" alt="npm downloads"></a>
   <a href="https://github.com/Mironlive/swipe-select/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/types-TypeScript-3178c6.svg" alt="TypeScript">
@@ -27,18 +28,18 @@
 - **Three ways to start, combinable:** an edge strip (mail apps), long press (Gmail, Photos), swipe across (iOS Photos select mode).
 - **Feels native.** Auto-scroll ramps up towards the edge and runs the same at 60 and 120 Hz. Moving back restores what was there before the gesture.
 - **Plays well with your state.** Redux / Zustand / `useState`, one `onSelectionChange` per gesture — not 60 dispatches a second.
-- **Expo-ready.** No native code of its own. Tested on iOS and Android, Reanimated 3 and 4, Gesture Handler 2 and 3.
+- **Expo and React Native CLI.** Works in Expo Go, Expo dev builds and bare React Native CLI projects — no native code of its own, no pods to link. Tested on iOS and Android, Reanimated 3 and 4, Gesture Handler 2 and 3.
 
 ## Installation
 
+Works the same in **Expo** (Expo Go and dev builds) and **React Native CLI** (bare) projects.
+
+**React Native CLI:**
+
 ```bash
 npm i @mironlive/react-native-swipe-select
-```
-
-Peer dependencies (you probably have them already):
-
-```bash
-npm i react-native-gesture-handler react-native-reanimated
+npm i react-native-gesture-handler react-native-reanimated   # if you don't have them yet
+cd ios && pod install                                        # only if you just added gesture-handler / reanimated
 ```
 
 **Expo:**

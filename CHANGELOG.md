@@ -1,6 +1,15 @@
 # Changelog
 
-## 0.1.0 — unreleased
+## 0.1.1 — 2026-11-12
+
+Docs only, no code changes.
+
+- README: the Quick start is copy-paste runnable (defines `Mail` and `MailRow`)
+- README: explicit Expo (Expo Go, dev builds) and React Native CLI support, install steps for both
+- README: static license badge, absolute links for the npm page
+- package.json: description and keywords mention Expo and React Native CLI
+
+## 0.1.0 — 2026-11-12
 
 First public release.
 
