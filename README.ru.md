@@ -1,32 +1,54 @@
-# Swipe Select
+<h1 align="center">Swipe Select</h1>
 
-`@mironlive/react-native-swipe-select` · [English](https://github.com/Mironlive/swipe-select#readme)
+<p align="center">
+  <b>Выбор элементов списка и сетки свайпом для React Native.</b><br>
+  Зажал, провёл пальцем — и всё, что под ним, отмечается. У края список сам прокручивается.
+</p>
 
-Выбор элементов списка жестом для React Native: зажал → провёл пальцем → элементы под пальцем отмечаются, у края список сам прокручивается.
+<p align="center">
+  <a href="https://www.npmjs.com/package/@mironlive/react-native-swipe-select"><img src="https://img.shields.io/npm/v/@mironlive/react-native-swipe-select.svg" alt="версия в npm"></a>
+  <img src="https://img.shields.io/badge/platforms-iOS%20%7C%20Android-lightgrey.svg" alt="платформы">
+  <img src="https://img.shields.io/badge/Expo-compatible-000020.svg" alt="совместим с Expo">
+  <img src="https://img.shields.io/badge/React%20Native%20CLI-compatible-61dafb.svg" alt="совместим с React Native CLI">
+  <a href="https://www.npmjs.com/package/@mironlive/react-native-swipe-select"><img src="https://img.shields.io/npm/dm/@mironlive/react-native-swipe-select.svg" alt="загрузки"></a>
+  <a href="https://github.com/Mironlive/swipe-select/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="лицензия MIT"></a>
+  <img src="https://img.shields.io/badge/types-TypeScript-3178c6.svg" alt="TypeScript">
+</p>
 
-- `FlatList`, `FlashList` v2, `LegendList`, сетки (`numColumns`), горизонтальные и `inverted`-списки
-- три способа начать жест: полоса у края, долгое нажатие, свайп поперёк
-- автоскролл у краёв, скорость растёт к краю и не зависит от 60/120 Гц
-- движение назад откатывает выбор к исходному состоянию — «мусор» не копится
-- невыбираемые элементы (`isItemSelectable`)
-- работает со своим стейтом: `useState`, Redux, Zustand
-- без UI: чекбоксы, подсветку, счётчик рисуешь сам
-- расчёты во время жеста — на UI-потоке (Reanimated worklets), React перерисовывается не чаще раза за кадр
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Mironlive/swipe-select/main/docs/media/hero.gif" width="260" alt="Долгое нажатие на письмо, появляются чекбоксы, ведение по колонке чекбоксов с автоскроллом">
+  &nbsp;
+  <img src="https://raw.githubusercontent.com/Mironlive/swipe-select/main/docs/media/grid.gif" width="260" alt="Сетка фото: долгое нажатие, затем свайп поперёк выделяет ряды">
+  &nbsp;
+  <img src="https://raw.githubusercontent.com/Mironlive/swipe-select/main/docs/media/edge.gif" width="260" alt="Список писем с полосой выбора слева, строки разной высоты, недоступные письма">
+</p>
+
+<p align="center"><a href="https://github.com/Mironlive/swipe-select#readme">English</a> · Русский</p>
+
+- **Любая высота строк.** Реальная геометрия каждой ячейки и бинарный поиск на UI-потоке — никакого фиксированного `itemSize`.
+- **Твой список, твой UI.** `FlatList`, `FlashList` v2 и `LegendList`; сетки, горизонтальные и `inverted`-списки. Без UI: чекбоксы рисуешь сам.
+- **Три способа начать жест, можно комбинировать:** полоса у края (почтовые клиенты), долгое нажатие (Gmail, «Фото»), свайп поперёк (режим выбора в «Фото» iOS).
+- **Ощущается нативно.** Автоскролл ускоряется к краю и одинаков на 60 и 120 Гц. Движение назад возвращает то, что было до жеста.
+- **Дружит с твоим стейтом.** Redux / Zustand / `useState`, один `onSelectionChange` на жест — а не 60 диспатчей в секунду.
+- **Expo и React Native CLI.** Работает в Expo Go, в Expo dev build и в обычных CLI-проектах — своего нативного кода нет, pods линковать не нужно. Проверено на iOS и Android, Reanimated 3 и 4, Gesture Handler 2 и 3.
 
 ## Установка
 
-Работает одинаково в **Expo** (Expo Go и dev build) и в **React Native CLI** (bare-проекты).
+Ставится одинаково в **Expo** (Expo Go и dev build) и в **React Native CLI** (bare-проекты).
 
 **React Native CLI:**
 
 ```bash
 npm i @mironlive/react-native-swipe-select
+npm i react-native-gesture-handler react-native-reanimated   # если их ещё нет
+cd ios && pod install                                        # только если только что добавил gesture-handler / reanimated
 ```
 
-Нужны (скорее всего уже стоят):
+**Expo:**
 
 ```bash
-npm i react-native-gesture-handler react-native-reanimated
+npx expo install react-native-gesture-handler react-native-reanimated
+npm i @mironlive/react-native-swipe-select
 ```
 
 | Пакет | Версия |
@@ -35,18 +57,7 @@ npm i react-native-gesture-handler react-native-reanimated
 | `react-native-gesture-handler` | ≥ 2.14, включая 3.x (проверено на 2.27, 2.31, 3.3) |
 | `react-native-reanimated` | ≥ 3.6 (проверено на 3.18, 4.3, 4.7) |
 
-### Expo
-
-Работает в Expo Go и в dev build — своего нативного кода у пакета нет. В React Native CLI ставится как обычная JS-зависимость, pods для самого пакета не нужны. Проверено на Expo SDK 58 (RN 0.88, Gesture Handler 3.3, Reanimated 4.7).
-
-```bash
-npx expo install react-native-gesture-handler react-native-reanimated
-npm i @mironlive/react-native-swipe-select
-```
-
-Babel-плагин в Expo подключать не нужно — он уже в `babel-preset-expo`.
-
-Приложение должно быть обёрнуто в `GestureHandlerRootView`, Babel-плагин Reanimated подключён — как в их документации.
+Оберни приложение в `GestureHandlerRootView` и подключи Babel-плагин Reanimated, как описано в их документации. В Expo плагин уже входит в `babel-preset-expo`.
 
 ## Быстрый старт
 
@@ -70,7 +81,7 @@ function MailRow({ mail, checked, onCheckboxPress }: { mail: Mail; checked: bool
 
 const keyExtractor = (item: Mail) => item.id;
 
-export const Inbox = ({ mails }: { mails: Mail[] }) => {
+export function Inbox({ mails }: { mails: Mail[] }) {
   const selection = useSwipeSelect({ data: mails, keyExtractor });
 
   return (
@@ -90,16 +101,16 @@ export const Inbox = ({ mails }: { mails: Mail[] }) => {
       />
     </SwipeSelectContainer>
   );
-};
+}
 ```
 
 Три правила:
 
-1. `{...selection.listProps}` — в список. Через них хук узнаёт позиции строк и управляет скроллом.
+1. `{...selection.listProps}` — в список. Так хук узнаёт позиции строк и управляет скроллом.
 2. Список — **прямой потомок** `SwipeSelectContainer`.
 3. `data` и `keyExtractor` — те же, что у списка.
 
-По умолчанию: первый элемент отмечаешь тапом по своему чекбоксу → включается режим выбора → ведёшь пальцем по левой полосе шириной 56px.
+По умолчанию первый элемент отмечаешь тапом по чекбоксу, дальше ведёшь пальцем по полосе шириной 56 px слева.
 
 ## Как начинается жест — `activation`
 
@@ -107,49 +118,49 @@ export const Inbox = ({ mails }: { mails: Mail[] }) => {
 // Полоса у края (по умолчанию). Как в почтовых клиентах.
 activation: { type: 'edge', side: 'left', size: 56 }
 
-// Долгое нажатие на любой элемент. Как в Gmail / галерее. Режим выбора не нужен.
+// Долгое нажатие в любом месте элемента. Как в Gmail / «Фото». Режим выбора не нужен.
 activation: { type: 'longPress', minDuration: 300 }
 
-// Свайп поперёк списка. Как «Фото» iOS: по горизонтали — выделение, по вертикали — скролл.
+// Свайп поперёк списка. Как «Фото» iOS: поперёк — выделение, вдоль — скролл.
 activation: { type: 'pan', activationDistance: 10 }
 ```
 
 | | `edge` | `longPress` | `pan` |
 | --- | --- | --- | --- |
 | Где | полоса у края | весь элемент | весь элемент |
-| Старт | сдвиг пальца на 4px | удержание | сдвиг поперёк списка |
+| Старт | после сдвига пальца на 4 px | после удержания | при свайпе поперёк списка |
 | `when` по умолчанию | `'selectionMode'` | `'always'` | `'selectionMode'` |
 | Скролл | вне полосы | до удержания | вдоль списка |
 
-`when` — когда способ доступен: `'always'`, `'selectionMode'` (только в режиме выбора), `'idle'` (только вне режима).
+`when` — когда способ доступен: `'always'`, `'selectionMode'` (только в режиме выбора) или `'idle'` (только вне режима выбора).
 
 ### Несколько способов сразу
 
-`activation` принимает массив. Как в iOS Mail — чекбоксов не видно, long press в любом месте письма включает режим и отмечает его, дальше ведёшь по колонке чекбоксов:
+`activation` принимает массив. Как в iOS Mail — сначала чекбоксов нет, долгое нажатие в любом месте включает режим выбора, дальше ведёшь по колонке чекбоксов:
 
 ```tsx
 activation: [
-  { type: 'longPress', when: 'idle' },   // вне режима выбора
-  { type: 'edge', side: 'left' },        // в режиме выбора
+  { type: 'longPress', when: 'idle' }, // вне режима выбора
+  { type: 'edge', side: 'left' },      // в режиме выбора
 ]
 ```
 
-Галерея как в «Фото» без кнопки «Выбрать»:
+Галерея без кнопки «Выбрать»:
 
 ```tsx
 activation: [
-  { type: 'longPress', when: 'idle' },   // удержал фото — режим + можно сразу вести
-  { type: 'pan' },                       // в режиме: по горизонтали выделение, по вертикали скролл
+  { type: 'longPress', when: 'idle' }, // удержал фото — режим выбора, можно сразу вести
+  { type: 'pan' },                     // дальше: поперёк — выделение, вдоль — скролл
 ]
 ```
 
-Прятать чекбоксы вне режима — это твой UI: `showCheckbox={selection.isSelectionMode}`.
+Прятать чекбоксы вне режима выбора — это твой UI: `showCheckbox={selection.isSelectionMode}`.
 
-**Режим выбора** по умолчанию включён, когда что-то выбрано. Если у тебя кнопка «Выбрать» — передай `selectionMode={isSelecting}`.
+**Режим выбора** включён, пока что-то выбрано. Если у тебя есть кнопка «Выбрать», передай `selectionMode={isSelecting}`.
 
-**Тап** жест не обрабатывает: тап в полосе достаётся твоему `onPress`. Драг — жесту. Двойного срабатывания нет.
+**Тапы** жест не перехватывает: тап достаётся твоему `onPress`, драг — жесту. Двойного переключения нет.
 
-## Свой стейт (Redux, Zustand...)
+## Свой стейт (Redux, Zustand…)
 
 ```tsx
 const selectedIds = useAppSelector((s) => s.mail.selectedIds);
@@ -163,19 +174,19 @@ const selection = useSwipeSelect({
 });
 ```
 
-- `selectedKeys` меняется снаружи — хук подхватывает.
-- Во время жеста выбор живёт внутри хука и рендерится раз в кадр. Наружу — один `onSelectionChange` в конце жеста, а не 60 диспатчей в секунду.
-- `toggle`, `select`, `deselect`, `selectAll`, `clear` тоже вызывают `onSelectionChange`.
+- Если `selectedKeys` меняется снаружи, хук это подхватывает.
+- Во время жеста выбор живёт внутри хука и рендерится не чаще раза за кадр. Стор получает один `onSelectionChange`, когда жест заканчивается.
+- `toggle`, `select`, `deselect`, `selectAll`, `clear` тоже вызывают `onSelectionChange`. Второй аргумент говорит, откуда изменение: `gesture`, `toggle` или `api`.
 
-Без внешнего стейта — просто не передавай `selectedKeys`; начальный выбор — `defaultSelectedKeys`.
+Нет внешнего стейта? Не передавай `selectedKeys`; начальный выбор задаётся через `defaultSelectedKeys`.
 
-## Разные списки
+## Списки
 
 ### FlatList
 
-Обычный `FlatList` из `react-native` — работает как есть.
+Обычный `FlatList` из `react-native` работает как есть.
 
-> ⚠️ **Не `Animated.FlatList` из Reanimated** — он запрещает `CellRendererComponent`, а через него хук узнаёт позиции строк. Если нужен анимированный — бери `SwipeSelectFlatList` из пакета (это `Animated.createAnimatedComponent(FlatList)`). В dev-режиме хук предупредит, если геометрия не приходит.
+> ⚠️ **Не `Animated.FlatList` из Reanimated** — он запрещает `CellRendererComponent`, через который хук узнаёт позиции строк. Нужен анимированный список? Используй `SwipeSelectFlatList` из пакета (это `Animated.createAnimatedComponent(FlatList)`). В dev-режиме хук предупредит, если не получает геометрию.
 
 ### FlashList v2
 
@@ -185,22 +196,6 @@ import { FlashList } from '@shopify/flash-list';
 <FlashList {...selection.listProps} data={data} renderItem={renderItem} />
 ```
 
-`AnimatedFlashList` тоже подходит.
-
-### Сетка
-
-```tsx
-// FlashList: ничего дополнительно не нужно
-<FlashList {...selection.listProps} numColumns={4} ... />
-
-// FlatList: передай numColumns и в хук
-const selection = useSwipeSelect({ data, keyExtractor, numColumns: 4, activation: { type: 'pan' } });
-<FlatList {...selection.listProps} numColumns={4} ... />
-```
-
-Выделение в сетке — линейное по индексу, как в «Фото»: от первой ячейки до той, что под пальцем.
-У FlatList ячейка — целая строка, колонки считаются равной ширины.
-
 ### LegendList
 
 ```tsx
@@ -209,25 +204,34 @@ import { LegendList } from '@legendapp/list/react-native';
 <LegendList {...selection.listProps} data={data} renderItem={renderItem} recycleItems />
 ```
 
-Ничего дополнительно не нужно: хук сам видит LegendList и берёт позиции элементов из его состояния.
+Больше ничего не нужно: хук сам узнаёт LegendList и берёт позиции элементов из его состояния.
 
-### Перевёрнутый список (чат)
+### Сетки
 
 ```tsx
-const selection = useSwipeSelect({ data, keyExtractor, inverted: true, activation: { type: 'longPress' } });
-<FlatList {...selection.listProps} inverted ... />
+// FlashList: ничего дополнительно
+<FlashList {...selection.listProps} numColumns={4} ... />
+
+// FlatList: передай numColumns и в хук
+const selection = useSwipeSelect({ data, keyExtractor, numColumns: 4, activation: { type: 'pan' } });
+<FlatList {...selection.listProps} numColumns={4} ... />
 ```
 
-### Горизонтальный список
+Выделение в сетке линейное по индексу, как в «Фото»: от первой ячейки до той, что под пальцем. `numColumns` меняется вместе с `key` у списка.
+
+### Горизонтальные и перевёрнутые
 
 ```tsx
-const selection = useSwipeSelect({ data, keyExtractor, horizontal: true, activation: { type: 'longPress' } });
+useSwipeSelect({ data, keyExtractor, horizontal: true, activation: { type: 'longPress' } });
 <FlatList {...selection.listProps} horizontal ... />
+
+useSwipeSelect({ data, keyExtractor, inverted: true, activation: { type: 'longPress' } }); // чаты
+<FlatList {...selection.listProps} inverted ... />
 ```
 
 ### Свой `CellRendererComponent`
 
-`listProps` содержит свой `CellRendererComponent`. Если нужен свой — сообщай геометрию сам:
+В `listProps` уже есть `CellRendererComponent`. Если нужен свой — сообщай геометрию сам:
 
 ```tsx
 const MyCell = ({ index, onLayout, ...props }) => (
@@ -240,36 +244,82 @@ const MyCell = ({ index, onLayout, ...props }) => (
     }}
   />
 );
-
-<FlatList {...selection.listProps} CellRendererComponent={MyCell} />
 ```
 
 Координаты — относительно контента списка.
 
-## Хаптика и события
+### Свои `ref`, `onLayout`, `onScroll`
+
+```tsx
+<FlatList
+  {...selection.listProps}
+  ref={(list) => { selection.listProps.ref(list); myListRef.current = list; }}
+  onLayout={(e) => { selection.listProps.onLayout(e); myOnLayout(e); }}
+  onScroll={myOnScroll} // хуку onScroll не нужен — передавай свой как обычно
+/>
+```
+
+## Что хранит выбор
+
+Ключи — строки из твоего `keyExtractor`. Ключом может быть что угодно: `id`, `uuid`, `` `${folder}:${id}` ``. Ключи переживают пагинацию, сортировку и новые элементы, а индексы — нет.
+
+| Нужно | Как получить |
+| --- | --- |
+| ключи для рендера | `selection.selectedKeys` — `Set<string>` |
+| ключи для стора | `onSelectionChange(keys)` — `string[]` |
+| сами элементы | `selection.getSelectedItems()` — объекты из `data` в порядке списка |
+| индексы | `selection.getSelectedIndices()` |
+| что под пальцем | `onItemEnter({ key, index, mode, isAutoScrolling })` |
+
+```tsx
+const onDelete = () => {
+  const mails = selection.getSelectedItems();
+  api.delete(mails.map((m) => m.serverId));
+  selection.clear();
+};
+```
+
+## Кастомизация
+
+**Внешний вид — полностью твой.** Пакет ничего не рисует. Используй состояние:
+
+```tsx
+selection.isSelectionMode     // показать чекбоксы, панель «Готово (N)»
+selection.isDragging          // палец ведёт выделение
+selection.selectedCount
+selection.autoScrollDirection // SharedValue: -1 вверх, 0, 1 вниз — для подсветки зон
+```
+
+**Скорость автоскролла:**
+
+```tsx
+autoScroll: {
+  edgeSize: 80,   // зона у края, px (по умолчанию 60)
+  minSpeed: 150,  // на внутренней границе зоны, px/с (по умолчанию 120)
+  maxSpeed: 1400, // у самого края, px/с (по умолчанию 900)
+}
+// autoScroll: false — выключить
+```
+
+**Хаптика:**
 
 ```tsx
 import * as Haptics from 'expo-haptics';
 
 useSwipeSelect({
   ...
-  onDragStart: ({ key, mode }) => Haptics.impactAsync(),
-  onItemEnter: () => Haptics.selectionAsync(), // палец перешёл на новый элемент
-  onDragEnd: ({ selectedKeys, mode }) => {},
+  onDragStart: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium),
+  onItemEnter: () => Haptics.selectionAsync(), // на каждом новом элементе под пальцем
 });
 ```
 
-`mode` — `'select'` или `'deselect'`: начал жест на выбранном элементе — жест снимает выбор.
-
-## Подсветка зон и состояние
+**Ограничения:**
 
 ```tsx
-selection.isSelectionMode    // режим выбора
-selection.isDragging         // палец ведёт выделение
-selection.autoScrollDirection // SharedValue: -1 вверх, 0, 1 вниз — для useAnimatedStyle
+enabled: !isEditingTitle,                        // выключить жест
+isItemSelectable: (m) => m.status !== 'sending', // пропускаются при свайпе
+selectionMode: isSelecting,                      // режим управляется кнопкой
 ```
-
-Внутри `SwipeSelectContainer` поверх списка можно класть свои слои (`pointerEvents="none"`) — например, подсветку полосы.
 
 ## API
 
@@ -279,17 +329,17 @@ selection.autoScrollDirection // SharedValue: -1 вверх, 0, 1 вниз — �
 | --- | --- | --- | --- |
 | `data` | `T[]` | — | данные списка |
 | `keyExtractor` | `(item, index) => string` | — | ключ элемента |
-| `selectedKeys` | `string[] \| Set<string>` | — | внешний стейт |
+| `selectedKeys` | `string[] \| Set<string>` | — | внешний стейт выбора |
 | `defaultSelectedKeys` | `string[]` | `[]` | начальный выбор без внешнего стейта |
-| `onSelectionChange` | `(keys, reason) => void` | — | `reason`: `gesture` / `toggle` / `api` |
+| `onSelectionChange` | `(keys, reason) => void` | — | раз за жест; `reason`: `gesture` / `toggle` / `api` |
 | `isItemSelectable` | `(item, index) => boolean` | все | невыбираемые пропускаются |
-| `activation` | объект или массив, см. выше | `{ type: 'edge' }` | как начинается жест |
+| `activation` | объект или массив | `{ type: 'edge' }` | как начинается жест |
 | `selectionMode` | `boolean` | `selectedCount > 0` | режим выбора |
 | `enabled` | `boolean` | `true` | выключить жест |
 | `horizontal` | `boolean` | `false` | горизонтальный список |
 | `inverted` | `boolean` | `false` | перевёрнутый список |
-| `numColumns` | `number` | `1` | колонки FlatList и LegendList; для FlashList не нужно |
-| `autoScroll` | `boolean \| { edgeSize, maxSpeed, minSpeed }` | `{ 60, 900, 120 }` | px и px/с |
+| `numColumns` | `number` | `1` | колонки для FlatList / LegendList; для FlashList не нужно |
+| `autoScroll` | `boolean \| { edgeSize, minSpeed, maxSpeed }` | `{ 60, 120, 900 }` | px и px/с |
 | `onDragStart` | `({ key, index, mode }) => void` | — | |
 | `onItemEnter` | `({ key, index, mode, isAutoScrolling }) => void` | — | |
 | `onDragEnd` | `({ selectedKeys, mode }) => void` | — | |
@@ -299,93 +349,49 @@ selection.autoScrollDirection // SharedValue: -1 вверх, 0, 1 вниз — �
 | | |
 | --- | --- |
 | `selectedKeys` | `ReadonlySet<string>` — новый объект при каждом изменении, годится для `extraData` |
-| `selectedCount`, `isSelectionMode`, `isDragging` | |
+| `selectedCount`, `isSelectionMode`, `isDragging` | состояние для UI |
 | `isSelected(key)`, `toggle(key)` | |
-| `getSelectedItems()` | выбранные объекты из `data` целиком, в порядке списка |
-| `getSelectedIndices()` | индексы выбранных в `data` |
 | `select(keys)`, `deselect(keys)`, `setSelection(keys)`, `selectAll()`, `clear()` | |
+| `getSelectedItems()`, `getSelectedIndices()` | выбранные объекты / индексы |
 | `listProps` | пропсы списка: `ref` (callback), `onLayout`, `onContentSizeChange`, `scrollEnabled`, `scrollEventThrottle`, `CellRendererComponent` |
 | `onItemLayout(layout)` | ручная регистрация геометрии |
 | `autoScrollDirection` | `SharedValue<number>` |
-| `gesture` | сам жест — если хочешь свой `GestureDetector` вместо контейнера |
+| `gesture` | сам жест — если нужен свой `GestureDetector` вместо контейнера |
 
-Если в списке нужны свои `ref` / `onLayout` / `onContentSizeChange` — вызови и обработчики из `listProps`:
+### Компоненты
 
-```tsx
-ref={(list) => { selection.listProps.ref(list); myListRef.current = list; }}
-onLayout={(e) => { selection.listProps.onLayout(e); myOnLayout(e); }}
-```
-
-`onScroll` хуку не нужен — свой `onScroll` передавай как обычно.
-
-## Что хранит выбор
-
-Ключи — строки из твоего `keyExtractor`. Ключом может быть что угодно: `id`, `uuid`, `` `${type}:${id}` ``.
-Нужны сами объекты — `selection.getSelectedItems()`, индексы — `getSelectedIndices()`.
-В событиях (`onDragStart`, `onItemEnter`) приходят `key` и `index`.
+- `SwipeSelectContainer` — `GestureDetector` + `View`. Пропсы: `selection`, `style`, `children`.
+- `SwipeSelectFlatList` — `Animated.createAnimatedComponent(FlatList)`, если нужен анимированный FlatList.
 
 ## Производительность
 
-Список остаётся твоим — со своей виртуализацией (`FlatList`, `FlashList`, `LegendList`). Пакет только читает позиции ячеек и смещение скролла.
+Список остаётся твоим — со своей виртуализацией. Пакет только читает позиции ячеек и смещение скролла.
 
 | Когда | Что делает пакет | Цена |
 | --- | --- | --- |
-| Покой | ничего: колбэк кадра выключен, жест ждёт касания | ноль |
-| Скролл | обновляет окно позиций раз в полэкрана | O(измеренных ячеек), редко |
-| Жест, каждый кадр | поиск строки под пальцем (бинарный, UI-поток), шаг автоскролла | ~10 сравнений на 1000 строк |
-| Жест, палец перешёл на новую строку | пересчёт диапазона (только разница) + один React-рендер | ~10 раз/с при автоскролле |
+| В покое | ничего — колбэк кадра выключен | ноль |
+| Скролл | обновляет окно геометрии раз в полэкрана | редко |
+| Жест, каждый кадр | ищет элемент под пальцем (бинарный поиск, UI-поток), шаг автоскролла | ~10 сравнений на 1 000 строк |
+| Палец перешёл на новый элемент | применяет разницу диапазонов + один React-рендер | ~10 раз/с при автоскролле |
 | Конец жеста | один `onSelectionChange` | один раз |
 
-Главная цена во время жеста — React-рендер строк при изменении выбора. Её контролируешь ты:
+На UI-потоке держится только окно геометрии ±3–4 экрана; проверено на сетке из 10 000 фото.
 
-```tsx
-// строка — memo, получает boolean, а не весь Set
-const MailRow = memo(({ mail, checked, onToggle }: Props) => { ... });
-
-const renderItem = useCallback(
-  ({ item }) => <MailRow mail={item} checked={selection.selectedKeys.has(item.id)} onToggle={selection.toggle} />,
-  [selection.selectedKeys, selection.toggle],
-);
-```
-
-- Колбэки в строку — стабильные (`useCallback`), иначе `memo` не сработает.
-- Не передавай в строку весь `selectedKeys` — только `checked`.
-- Тяжёлые строки (картинки, тени) — `FlashList` / `LegendList` с переиспользованием ячеек.
-- Окно геометрии на UI-потоке — ±3–4 экрана вокруг скролла; проверено на 10 000 элементов.
+Основная цена во время жеста — перерисовка твоих строк. Держи её дешёвой: строки в `memo`, передавай в строку `checked` (boolean), а не весь Set, колбэки стабильные через `useCallback`.
 
 ## Как это работает
 
-- Каждая ячейка сообщает свою позицию через `CellRendererComponent` → реестр, отсортированный по индексу. У LegendList позиции берутся из его состояния.
-- Касание переводится в координаты контента (`+ scrollOffset`), элемент ищется бинарным поиском прямо в worklet. Разная высота строк, сетки, дыры от виртуализации — всё ок. Палец на разделителе — берётся ближайший элемент.
-- Выбор считается как переход между диапазонами `[якорь..палец]`: вошёл в диапазон — применяем режим, вышел — восстанавливаем из снимка на старте жеста. Обрабатывается только разница диапазонов.
-- Смещение скролла читается с нативного ScrollView (`useScrollOffset`), прокрутка — `scrollTo` на UI-потоке.
-- Если `data` меняется посреди жеста (новое письмо сверху, удаление), якорь и диапазон переносятся по ключам — выделение не съезжает. Если якорный элемент удалили — жест завершается.
+- Каждая ячейка сообщает свою рамку через `CellRendererComponent` в реестр, отсортированный по индексу (у LegendList позиции берутся из его состояния).
+- Касание переводится в координаты контента (`+ scrollOffset`) и ищется бинарным поиском прямо в worklet. Разная высота, сетки и дыры виртуализации — не проблема; на разделителе берётся ближайший элемент.
+- Выбор — это переход между диапазонами `[якорь..палец]`: вошёл в диапазон — применяется режим, вышел — восстанавливается снимок на момент старта жеста. Обрабатывается только разница.
+- Смещение скролла читается с нативного ScrollView (`useScrollOffset`); автоскролл — `scrollTo` на UI-потоке.
+- Если `data` меняется посреди жеста (новое письмо сверху, удаление), якорь и диапазон переносятся по ключам. Если удалён элемент, с которого начался жест, жест завершается.
 
 ## Ограничения
 
 - Порядок индексов должен совпадать с визуальным (обычные списки и сетки). Masonry-раскладки не поддерживаются.
 - `SectionList` не поддерживается.
-- `horizontal`, `inverted`, `numColumns` меняются на лету только вместе с перемонтированием списка (`key`).
-- Проверено в симуляторе iOS и эмуляторе Android: RN 0.80 + Reanimated 3.18, RN 0.85 + Reanimated 4.3, Expo SDK 58 (RN 0.88 + Gesture Handler 3.3 + Reanimated 4.7).
-
-## Example
-
-В `example/` — голое RN-приложение с восемью сценариями: почта с полосой слева (FlatList, недоступные элементы, симуляция входящих писем во время жеста), полоса справа (FlashList), long press, LegendList, чат (`inverted`), сетка FlashList, сетка FlatList, горизонтальный список.
-
-```bash
-npm run example:install
-npm run example:pods
-npm run example:start
-npm run example:ios
-```
-
-## Разработка
-
-```bash
-npm run type-check
-npm test        # чистая логика: диапазоны и hit-test
-npm run build
-```
+- `horizontal`, `inverted` и `numColumns` меняются на лету только вместе с перемонтированием списка (`key`).
 
 ## Сравнение
 
@@ -398,15 +404,34 @@ npm run build
 | Активация | полоса, long press, pan, комбинации | long press + pan |
 | Невыбираемые элементы | да | — |
 | Откат при движении назад | к состоянию на старте жеста | — |
-| Внешний стейт, один коллбэк на жест | да | — |
-| Изменение `data` во время жеста | перенос по ключам | — |
+| Внешний стейт, один колбэк на жест | да | — |
+| Изменение данных во время жеста | перенос по ключам | — |
 | Reanimated | 3 и 4 | ≥ 3.16 |
 
 \* по их README: без динамических размеров.
 
+## Пример приложения
+
+[`example/`](https://github.com/Mironlive/swipe-select/tree/main/example) — bare-приложение на React Native с восемью сценариями: почта с полосой слева (FlatList, недоступные письма, входящие письма во время жеста), полоса справа (FlashList), долгое нажатие, LegendList, чат (`inverted`), сетка FlashList, сетка FlatList, горизонтальный список.
+
+```bash
+npm run example:install
+npm run example:pods
+npm run example:start
+npm run example:ios     # или: cd example && npm run android
+```
+
+## Разработка
+
+```bash
+npm run type-check
+npm test        # чистая логика: переходы диапазонов и hit-test
+npm run build
+```
+
 ## Автор
 
-Made by Mironov · [@Mironlive](https://github.com/Mironlive)
+Mironov · [@Mironlive](https://github.com/Mironlive)
 
 ## Лицензия
 
