@@ -23,6 +23,8 @@
   <img src="https://raw.githubusercontent.com/Mironlive/swipe-select/main/docs/media/edge.gif" width="260" alt="Mail list with a selection strip on the left, variable row heights and locked items">
 </p>
 
+<p align="center">English · <a href="https://github.com/Mironlive/swipe-select/blob/main/README.ru.md">Русский</a></p>
+
 - **Any row height.** Real per-item layout and a binary search on the UI thread — no fixed `itemSize`.
 - **Your list, your UI.** Works with `FlatList`, `FlashList` v2 and `LegendList`; grids, horizontal and `inverted` lists. Headless: you draw the checkboxes.
 - **Three ways to start, combinable:** an edge strip (mail apps), long press (Gmail, Photos), swipe across (iOS Photos select mode).
