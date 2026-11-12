@@ -47,8 +47,22 @@ Babel-плагин в Expo подключать не нужно — он уже 
 ## Быстрый старт
 
 ```tsx
-import { FlatList } from 'react-native';
+import { FlatList, Pressable, Text, View } from 'react-native';
 import { SwipeSelectContainer, useSwipeSelect } from '@mironlive/react-native-swipe-select';
+
+type Mail = { id: string; subject: string };
+
+// Твоя строка — пакет ничего не рисует. Чекбокс держи в левой полосе 56 px.
+function MailRow({ mail, checked, onCheckboxPress }: { mail: Mail; checked: boolean; onCheckboxPress: () => void }) {
+  return (
+    <View style={{ flexDirection: 'row', paddingVertical: 12, backgroundColor: checked ? '#e8f0ff' : '#fff' }}>
+      <Pressable onPress={onCheckboxPress} style={{ width: 56, alignItems: 'center' }}>
+        <View style={{ width: 22, height: 22, borderRadius: 6, borderWidth: 2, borderColor: '#2f6bff', backgroundColor: checked ? '#2f6bff' : 'transparent' }} />
+      </Pressable>
+      <Text>{mail.subject}</Text>
+    </View>
+  );
+}
 
 const keyExtractor = (item: Mail) => item.id;
 
