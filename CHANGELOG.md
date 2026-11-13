@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2 — 2026-11-13
+
+Docs only, no code changes.
+
+- README: links to the Flutter, SwiftUI and Jetpack Compose versions
+
 ## 0.1.1 — 2026-11-12
 
 Docs only, no code changes.

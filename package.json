@@ -1,6 +1,6 @@
 {
   "name": "@mironlive/react-native-swipe-select",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Swipe to multi-select for React Native lists and grids: hold, swipe, auto-scroll. Expo & React Native CLI. FlatList, FlashList, LegendList.",
   "license": "MIT",
   "main": "./lib/index.cjs",
