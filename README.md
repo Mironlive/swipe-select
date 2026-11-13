@@ -32,6 +32,8 @@
 - **Plays well with your state.** Redux / Zustand / `useState`, one `onSelectionChange` per gesture — not 60 dispatches a second.
 - **Expo and React Native CLI.** Works in Expo Go, Expo dev builds and bare React Native CLI projects — no native code of its own, no pods to link. Tested on iOS and Android, Reanimated 3 and 4, Gesture Handler 2 and 3.
 
+> Also available for [Flutter](https://pub.dev/packages/swipe_select), [SwiftUI](https://github.com/Mironlive/swipe-select-swiftui) and [Jetpack Compose](https://github.com/Mironlive/swipe-select-compose).
+
 ## Installation
 
 Works the same in **Expo** (Expo Go and dev builds) and **React Native CLI** (bare) projects.

@@ -32,6 +32,8 @@
 - **Дружит с твоим стейтом.** Redux / Zustand / `useState`, один `onSelectionChange` на жест — а не 60 диспатчей в секунду.
 - **Expo и React Native CLI.** Работает в Expo Go, в Expo dev build и в обычных CLI-проектах — своего нативного кода нет, pods линковать не нужно. Проверено на iOS и Android, Reanimated 3 и 4, Gesture Handler 2 и 3.
 
+> Есть версии для [Flutter](https://pub.dev/packages/swipe_select), [SwiftUI](https://github.com/Mironlive/swipe-select-swiftui) и [Jetpack Compose](https://github.com/Mironlive/swipe-select-compose).
+
 ## Установка
 
 Ставится одинаково в **Expo** (Expo Go и dev build) и в **React Native CLI** (bare-проекты).
