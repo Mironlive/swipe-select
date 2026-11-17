@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { SwipeSelectContainer, SwipeSelectFlatList, useSwipeSelect } from '@mironlive/react-native-swipe-select';
 import { makePhotos, type Photo } from '../data';
 import { Toolbar } from '../ui';
@@ -14,13 +14,14 @@ export const HorizontalScreen = () => {
     horizontal: true,
     activation: { type: 'longPress' },
   });
-  const { selectedKeys } = selection;
+  const { selectedKeys, toggle, isSelectionMode } = selection;
 
   const renderItem = useCallback(
     ({ item, index }: { item: Photo; index: number }) => {
       const on = selectedKeys.has(item.id);
       return (
-        <View
+        <Pressable
+          onPress={() => isSelectionMode && toggle(item.id)}
           style={{
             width: 70 + (index % 3) * 30,
             height: 140,
@@ -34,10 +35,10 @@ export const HorizontalScreen = () => {
           }}
         >
           <Text style={{ color: '#fff', fontWeight: '700' }}>{index + 1}</Text>
-        </View>
+        </Pressable>
       );
     },
-    [selectedKeys],
+    [isSelectionMode, selectedKeys, toggle],
   );
 
   return (
